@@ -16,13 +16,24 @@ package com.ly.pattern.observer;
  */
 public class ObserverPatternDemo {
 
-    public static void main(String[] args) {
+    public void updateState() {
         Subject subject = new Subject();
         new BinaryObserver(subject);
         new OctalObserver(subject);
         new HexaObserver(subject);
         subject.setState(1);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("-------state change to 0----");
         subject.setState(0);
+        subject.threadPoolShutdown();
+    }
+
+    public static void main(String[] args) {
+        ObserverPatternDemo demo = new ObserverPatternDemo();
+        demo.updateState();
     }
 }
